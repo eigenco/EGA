@@ -4,7 +4,7 @@
 
 [EGA64.ASM] TSR for enabling VSYNC- with Ironman (DOS game) which supports EGA64, but doesn't set VSYNC-.
 
-Difference demonstrated below.
+Difference demonstrated below (first is regular EGA16, second is EGA64).
 
 ![EGA16](https://github.com/eigenco/EGA/assets/42321684/fd8846b0-8382-401e-9b5d-99aae28368ce)
 ![EGA64](https://github.com/eigenco/EGA/assets/42321684/3c9ae760-0e7c-49ba-ada4-9ed6d1cda90a)
