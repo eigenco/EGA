@@ -76,13 +76,13 @@ begin
     begin
       while i = 9 do i := port[$3da] and 9; { wait for VSYNC to end }
       k := 0;
-
+{
       if l = 0 then
       begin
         l := 1;
       end
       else l := 0;
-
+}
       if l = 0 then
       begin
            r := r + p;
