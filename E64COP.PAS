@@ -40,8 +40,8 @@ begin
     end
     else
       j := k - b;
-    if j < 32 then
-      color := color or ctab[(31-j) shr 3];
+    if j < 29 then
+      color := color or ctab[(28-j) shr 3];
 
 
     if k < g then
@@ -50,8 +50,8 @@ begin
     end
     else
       j := k - g;
-    if j < 32 then
-      color := color or ctab[(31-j) shr 3 shl 2];
+    if j < 29 then
+      color := color or ctab[(28-j) shr 3 shl 2];
 
     if k < r then
     begin
@@ -59,8 +59,8 @@ begin
     end
     else
       j := k - r;
-    if j < 32 then
-      color := color or ctab[(31-j) shr 3 shl 4];
+    if j < 29 then
+      color := color or ctab[(28-j) shr 3 shl 4];
 
     while i <> 1 do i := port[$3da] and 9; { wait for HSYNC to start }
 
