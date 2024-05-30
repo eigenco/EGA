@@ -11,7 +11,7 @@ module Top(
 	output reg [2:0] led
 );
 
-reg [31:0] cnt;
+reg [23:0] cnt;
 reg        mode;
 reg [15:0] Hcnt;
 reg [31:0] Vcnt;
@@ -22,13 +22,13 @@ reg        HD = 1;
 
 always @(posedge clk)
 begin
-	if(V==1'b1) if(cnt<40000000) cnt = cnt + 1;
-	if(V==1'b0) if(cnt>0) cnt = cnt - 1;
-	if(cnt>20000000) mode = 0;
-	if(cnt<20000000) mode = 1;
-	led[0] = mode;
-	led[1] = mode;
-	led[2] = mode;
+	if(V==1'b1) if(cnt<24'hffffff) cnt <= cnt + 1;
+	if(V==1'b0) if(cnt>24'h000000) cnt <= cnt - 1;
+	if(cnt>24'h500000) mode <= 0;
+	if(cnt<24'h500000) mode <= 1;
+	led[0] <= mode;
+	led[1] <= mode;
+	led[2] <= mode;
 end
 
 always @(posedge clk)
@@ -41,7 +41,8 @@ begin
 	else Hcnt <= Hcnt + 1;
 	if(Vcnt<89700 || Vcnt>780000) VD <= 0;
 	else VD <= 1;
-	if(Hcnt<610 || Hcnt>2950) HD <= 0;
+	//if(Hcnt<610 || Hcnt>2950) HD <= 0;
+	if(Hcnt<500 || Hcnt>2950) HD <= 0;
 	else HD <= 1;
 end
 
