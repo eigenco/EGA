@@ -18,3 +18,5 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 ![EGA64_0D_COPPERS](https://github.com/eigenco/EGA/assets/42321684/e7d8b5d8-e86d-43f3-8825-66582eb31a7a)
 
 [EKEF200.PAS, EKEF350.PAS] Kefrens Bars in 320x200 and 640x350. The 320x200 mode with 64 EGA colors doesn't work properly in dosbox, but 640x350 with 64 EGA colors does work (in dosbox-x at least). To see 320x200 with 64 EGA colors, real hardware with compatible monitor is needed.
+
+![kefrens](https://github.com/user-attachments/assets/9f421bf0-65c9-46a3-ab95-b605d10fcda7)
