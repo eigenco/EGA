@@ -1,4 +1,4 @@
-{ Kefrens Bars on EGA 320x200.16 with 64 colors }
+{ Kefrens Bars on EGA 640x350.16 with 64 colors }
 {       (requires compatible EGA monitor)       }
 uses crt;
 
@@ -29,30 +29,29 @@ var
   a, b, c, g, r : byte;
   i, j, k : word;
   p, q, s, t, u, v, w, x, y, z : word;
-  atab : array [0..199] of word;
-  btab : array [0..199] of word;
+  atab : array [0..349] of word;
+  btab : array [0..349] of word;
   Y1, Z1, Y2, Z2 : array [0..2] of word;
-  coppertab : array [0..199] of word; { 11 }
+  coppertab : array [0..349] of word; { 11 }
   sintabC : array [0..1023] of integer;
   sintab50 : array [0..1023] of integer;
   r1, r2, r3, g1, g2, g3, b1, b2, b3 : byte;
 
 begin
   asm
-    mov ax, 0dh
+    mov ax, 10h
     int 10h
     cli
   end;
-  port[$3c2] := $a3; { EGA colors }
   portw[$3d4] := $13; { 0 scanline offset (line buffer) }
 
-  for i := 0 to 199 do begin
-    atab[i] := round(160.0 + 14.0*cos(2*pi*i/200*2) + 24.0*sin(2*pi*i/200*3));
-    btab[i] := round(160.0 + 20.0*sin(2*pi*i/200*2) + 18.0*cos(2*pi*i/200*1));
+  for i := 0 to 349 do begin
+    atab[i] := round(320.0 + 14.0*cos(2*pi*i/350*2) + 24.0*sin(2*pi*i/350*3));
+    btab[i] := round(320.0 + 20.0*sin(2*pi*i/350*2) + 18.0*cos(2*pi*i/350*1));
   end;
 
   for i := 0 to 1023 do begin
-    sintab50[i] := round(50*sin(2*pi*i/1024));
+    sintab50[i] := round(60*sin(2*pi*i/1024));
     sintabC[i] := round(40*sin(2*pi*i/1024));
   end;
 
@@ -105,47 +104,6 @@ begin
   coppertab[40] := ega64[2 shl 4] or ega64[2 shl 2] or ega64[2];
   coppertab[41] := ega64[1 shl 4] or ega64[1 shl 2] or ega64[1];
 
-  {
-  coppertab[120 + $0] := ega64[0 shl 4];
-  coppertab[120 + $1] := ega64[0 shl 4];
-  coppertab[120 + $2] := ega64[1 shl 4];
-  coppertab[120 + $3] := ega64[1 shl 4];
-  coppertab[120 + $4] := ega64[2 shl 4];
-  coppertab[120 + $5] := ega64[2 shl 4];
-  coppertab[120 + $6] := ega64[3 shl 4];
-  coppertab[120 + $7] := ega64[3 shl 4];
-  coppertab[120 + $8] := ega64[2 shl 4];
-  coppertab[120 + $9] := ega64[2 shl 4];
-  coppertab[120 + 10] := ega64[1 shl 4];
-  coppertab[120 + 11] := ega64[1 shl 4];
-
-  coppertab[120 + 12] := ega64[0 shl 2];
-  coppertab[120 + 13] := ega64[0 shl 2];
-  coppertab[120 + 14] := ega64[1 shl 2];
-  coppertab[120 + 15] := ega64[1 shl 2];
-  coppertab[120 + 16] := ega64[2 shl 2];
-  coppertab[120 + 17] := ega64[2 shl 2];
-  coppertab[120 + 18] := ega64[3 shl 2];
-  coppertab[120 + 19] := ega64[3 shl 2];
-  coppertab[120 + 20] := ega64[2 shl 2];
-  coppertab[120 + 21] := ega64[2 shl 2];
-  coppertab[120 + 22] := ega64[1 shl 2];
-  coppertab[120 + 23] := ega64[1 shl 2];
-
-  coppertab[120 + 24] := ega64[0 shl 0];
-  coppertab[120 + 25] := ega64[0 shl 0];
-  coppertab[120 + 26] := ega64[1 shl 0];
-  coppertab[120 + 27] := ega64[1 shl 0];
-  coppertab[120 + 28] := ega64[2 shl 0];
-  coppertab[120 + 29] := ega64[2 shl 0];
-  coppertab[120 + 30] := ega64[3 shl 0];
-  coppertab[120 + 31] := ega64[3 shl 0];
-  coppertab[120 + 32] := ega64[2 shl 0];
-  coppertab[120 + 33] := ega64[2 shl 0];
-  coppertab[120 + 34] := ega64[1 shl 0];
-  coppertab[120 + 35] := ega64[1 shl 0];
-  }
-
   r1 := ega64[1 shl 4];
   r2 := ega64[2 shl 4];
   r3 := ega64[3 shl 4];
@@ -182,13 +140,13 @@ begin
     { advance time and clear memory during vsync }
     t := t + 1;
     portw[$3cf] := 255;
-    for i := 0 to 19 do
+    for i := 0 to 39 do
       memw[$a000:i shl 1] := 0;
 
     { calculate coppers }
-    for k := 100 to 199 do coppertab[k] := 0;
+    for k := 150 to 349 do coppertab[k] := 0;
 
-    k := 150 + sintabC[t shl 2 and 1023];
+    k := 250 + sintabC[t shl 2 and 1023];
     coppertab[k - 4] := r1;
     coppertab[k - 3] := r1;
     coppertab[k - 2] := r2;
@@ -200,7 +158,7 @@ begin
     coppertab[k + 4] := r1;
     coppertab[k + 5] := r1;
 
-    k := 150 + sintabC[t shl 1 and 1023];
+    k := 250 + sintabC[t shl 1 and 1023];
     coppertab[k - 4] := coppertab[k - 4] or g1;
     coppertab[k - 3] := coppertab[k - 3] or g1;
     coppertab[k - 2] := coppertab[k - 2] or g2;
@@ -212,7 +170,7 @@ begin
     coppertab[k + 4] := coppertab[k + 4] or g1;
     coppertab[k + 5] := coppertab[k + 5] or g1;
 
-    k := 150 + sintabC[t*3 and 1023];
+    k := 250 + sintabC[t*3 and 1023];
     coppertab[k - 4] := coppertab[k - 4] or b1;
     coppertab[k - 3] := coppertab[k - 3] or b1;
     coppertab[k - 2] := coppertab[k - 2] or b2;
@@ -226,11 +184,11 @@ begin
 
     while (port[$3da] and 8) <> 0 do; { wait for vsync to end }
 
-    for i := 0 to 199 do
+    for i := 0 to 349 do
     begin
 
       { compute stuff during visible part of the scanline }
-      u := (i + t) mod 200;
+      u := (i + t) mod 350;
       v := atab[u] + sintab50[(t shl 2) and 1023];
       w := btab[u] + sintab50[(t shl 3) and 1023];
 
@@ -254,13 +212,13 @@ begin
 
       while (port[$3da] and 1) = 0 do; { wait for hsync to begin }
 
-      if i < 100 then begin
+      if i < 150 then begin
         port[$3c0] := 0;
-        port[$3c0] := coppertab[(i + t) mod 100];
+        port[$3c0] := coppertab[(i + t) mod 150];
         port[$3c0] := $20;
       end else begin
         port[$3c0] := 0;
-        port[$3c0] := coppertab[100 + i mod 100];
+        port[$3c0] := coppertab[150 + i mod 150];
         port[$3c0] := $20;
       end;
 
