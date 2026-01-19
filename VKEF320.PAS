@@ -27,6 +27,14 @@ begin
   end;
 
   { generate palette }
+  port[$3c8] := 1;
+  for i := 1 to 31 do
+  begin
+    port[$3c9] := i shl 1;
+    port[$3c9] := i shl 1;
+    port[$3c9] := i shl 1;
+  end;
+
   port[$3c8] := 64;
   for i := 0 to 63 do
   begin
@@ -109,9 +117,8 @@ begin
 
       { kefrens bars }
       s := t and 1023;
-      color := (i + t) and 63;
-      red := color or 64;
-      blue := color or 192;
+      red := i + t;
+      blue := red + 128;
       address := kefrtab[k] + sintabr[s];
       memw[$a000:address] := red shl 8 or red;
       address := kefbtab[k] + sintabb[s];
