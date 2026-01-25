@@ -28,7 +28,7 @@ begin
 end;
 
 var
-  a, b, p, q, r, x, y, z : byte;
+  a, b, c, p, q, r, x, y, z : byte;
   i, j, k, t, u, v, w : word;
   atab : array [0..199] of word;
   btab : array [0..199] of word;
@@ -200,6 +200,7 @@ begin
 
     { fetch copper related parameters during vsync }
     a := t mod 160;
+    {a := 0;}
     x := xtab[a];
     y := ytab[a];
     z := ztab[a];
@@ -244,12 +245,13 @@ begin
 
       { produce Copper Bar palettes }
       a := t and 1;
+      c := i and 1;
       p := (i shr 1 + x) mod 200;
       q := (i shr 1 + y) mod 200;
       r := (i shr 1 + z) mod 200;
-      port[$3c0] := a;
+      port[$3c0] := a xor c;
       port[$3c0] := coppertabRA[p] or coppertabGA[q] or coppertabBA[r];
-      port[$3c0] := a xor 1;
+      port[$3c0] := a xor 1 xor c;
       port[$3c0] := coppertabRB[p] or coppertabGB[q] or coppertabBB[r];
       port[$3c0] := $20;
 
