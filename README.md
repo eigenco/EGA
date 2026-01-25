@@ -23,4 +23,4 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 
 [EKEFEXT4.PAS] EGA copper bars (with Kefrens bars) using higher number of "fake" colors with temporal and spatial dithering for the coppers.
 
-<img width="320" height="200" alt="EKEFEXT" src="https://github.com/user-attachments/assets/f35bbf4a-88ec-4fcf-9515-681208d96525" />
+<img width="320" height="200" alt="Screenshot (1523)" src="https://github.com/user-attachments/assets/64d00023-8022-4c50-8298-921fa79563fd" />
