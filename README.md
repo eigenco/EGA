@@ -24,3 +24,7 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 [EKEFEXT4.PAS] EGA copper bars (with Kefrens bars) using higher number of "fake" colors with temporal and spatial dithering for the coppers.
 
 <img width="320" height="200" alt="Screenshot (1523)" src="https://github.com/user-attachments/assets/64d00023-8022-4c50-8298-921fa79563fd" />
+
+[ETEXTCOP.PAS] EGA copper bars for minimum of 286/10 MHz (1WS) or 286/8 MHz (0WS) in textmode.
+
+<img width="1280" height="800" alt="Monitor_1_20260127-094201-902" src="https://github.com/user-attachments/assets/5a42697c-3d21-4602-9f64-98b48df5a807" />
