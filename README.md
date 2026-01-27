@@ -27,4 +27,4 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 
 [ETEXTCOP.PAS] EGA copper bars for minimum of 286/10 MHz (1WS) or 286/8 MHz (0WS) in textmode.
 
-<img width="1280" height="800" alt="Monitor_1_20260127-094201-902" src="https://github.com/user-attachments/assets/5a42697c-3d21-4602-9f64-98b48df5a807" />
+<img width="640" height="400" alt="Monitor_1_20260127-094201-902" src="https://github.com/user-attachments/assets/377bde5b-3273-4377-a047-4d1257228977" />
