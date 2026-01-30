@@ -28,3 +28,5 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 [ETXTK8.PAS] EGA textmode Copper Bars and Kefrens Bar with 64 colors on 15 kHz monitor. Runs at least on 286/12 MHz (0WS).
 
 <img width="320" height="200" alt="Monitor_1_20260127-175811-829" src="https://github.com/user-attachments/assets/aff828eb-fc6d-4399-8c05-70bbeef92ef0" />
+
+[OPTIMIZD.PAS] Optimized to run on 286/8 MHz (0WS).
