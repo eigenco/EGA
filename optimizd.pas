@@ -1,7 +1,7 @@
 { A sort of Kefrens Bar with 3 dithered RGB copper bars }
 { * stable 60 Hz on 286/8 MHz (0WS) with standard EGA }
 { * monitor is required to support 64 colors on 15 kHz modes }
-{ * 86box is able to emulate (dosbox not) }
+{ * 86box is able to emulate if set to lowres EGA (dosbox not) }
 uses crt;
 
 const
@@ -216,4 +216,5 @@ begin
   freemem(ctab1, 256*200);
   freemem(ctab0, 256*200);
 end.
+
 
