@@ -13,17 +13,18 @@ var
   a, b, c : integer;
   x, y, z, zoom : real;
   f : file;
+  vmem : array[0..160*100-1] of byte;
   buf : array[0..1023] of byte;
   spr : array[0..16*16-1] of byte;
   i, j, k : word;
   pos : longint;
 
-procedure putpixel(x, y : word; c : byte);
+procedure putpixel(x, y, c : byte);
 var
   addr : word;
 begin
   addr := x and $fe or 1 + y shl 7 + y shl 5;
-  if x and 1 = 0 then mem[$b800:addr] := mem[$b800:addr] and $0f or (c shl 4)
+  if x and 1 = 0 then mem[$b800:addr] := mem[$b800:addr] and $0f or c shl 4
   else mem[$b800:addr] := mem[$b800:addr] and $f0 or c;
 end;
 
@@ -35,8 +36,8 @@ begin
   for i := 0 to 255 do begin
     costab[i] := round(256*cos(2*pi*i/256));
     sintab[i] := round(256*sin(2*pi*i/256));
+    write('.');
   end;
-
 
   clrscr;
 
@@ -75,7 +76,7 @@ begin
   close(f);
 
   for i := 0 to 7999 do
-    memw[$b800:i shl 1] := $00de;
+    memw[$b800:i shl 1] := $de;
 
   for j := 0 to 15 do
       for i := 0 to 15 do begin
@@ -86,12 +87,21 @@ begin
   p := 0;
   repeat
     p := p + 4;
-    for b := -45 to 45 do
-      for a := -45 to 45 do begin
+    for b := -40 to 40 do
+      for a := -40 to 40 do begin
         i := 8 + (a * costab[p] shr 8 - b * sintab[p] shr 8);
         j := 8 + (a * sintab[p] shr 8 + b * costab[p] shr 8);
-        putpixel(80 + a, 50 + b, spr[(i + j shl 4) and 255])
+        {vmem[80 + a + (50 + b) * 160] := spr[(i + j shl 4) and 255];}
+        putpixel(80 + a, 50 + b, spr[(i + j shl 4) and 255]);
       end;
+    { on faster machines it makes sense to buffer }
+    {
+    while (port[$3da] and 8) <> 0 do;
+    for b := 15 to 85 do
+      for a := 45 to 115 do
+        mem[$b800:a and $fe or 1 + b * 160] := vmem[a + b * 160] shl 4 or vmem[a + 1 + b * 160];
+    while (port[$3da] and 8) = 0 do;
+    }
   until keypressed;
   asm
     mov ax, 3
