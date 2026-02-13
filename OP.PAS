@@ -228,6 +228,8 @@ begin
       top[j] := 0;
     end;
 
+    b := t mod 252;
+
     { wait for vsync to end }
     while (port[$3da] and 8) <> 0 do;
 
@@ -238,7 +240,7 @@ begin
       { fetch Kefrens Bars data }
       k := i shl 8 or (t and 255);
       ik := mem[seg(iktab^):k];
-      colork := mem[seg(colorktab^):i shl 8 or (t mod 252)];
+      colork := mem[seg(colorktab^):i shl 8 or b];
       address := mem[seg(addresstab^):k];
       pixel := mem[seg(pixeltab^):k] shl 8 or $de;
 
@@ -290,6 +292,7 @@ begin
   freemem(ctab1, 256*200);
   freemem(ctab0, 256*200);
 end.
+
 
 
 
