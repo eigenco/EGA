@@ -1,5 +1,5 @@
 { A sort of Kefrens Bar with 3 dithered RGB copper bars }
-{ * stable 60 Hz on 286/12 MHz 0WS (SCAT chipset) with 8-bit EGA adapter (Gemini VC-001) }
+{ * tested stable 60 Hz on real 286/12 MHz 0WS (SCAT chipset) with 8-bit EGA adapter (Gemini VC-001) }
 { * monitor is required to support 64 colors on 15 kHz modes }
 { * 86box is able to emulate if set to lowres EGA (dosbox does not support this) }
 
@@ -293,6 +293,7 @@ begin
   freemem(ctab1, 256*200);
   freemem(ctab0, 256*200);
 end.
+
 
 
 
