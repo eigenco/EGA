@@ -29,4 +29,6 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 
 <img width="320" height="200" alt="Monitor_1_20260127-175811-829" src="https://github.com/user-attachments/assets/aff828eb-fc6d-4399-8c05-70bbeef92ef0" />
 
-[OPTIMIZD.PAS] Optimized to run on 286/8 MHz (0WS).
+[KOPL3LPT.PAS] Plays music via OPL3LPT and yet another set of EGA64 Kefrens Bar colors.
+
+<img width="1280" height="800" alt="Monitor_1_20260214-205241-987" src="https://github.com/user-attachments/assets/a7746f6d-8da4-46ba-ac25-2aa95c714536" />
