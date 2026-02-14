@@ -31,4 +31,4 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 
 [KOPL3LPT.PAS] Plays music via OPL3LPT and yet another set of EGA64 Kefrens Bar colors.
 
-<img width="1280" height="800" alt="Monitor_1_20260214-205241-987" src="https://github.com/user-attachments/assets/a7746f6d-8da4-46ba-ac25-2aa95c714536" />
+<img width="320" height="200" alt="Monitor_1_20260214_205241-987" src="https://github.com/user-attachments/assets/44d7aba9-6718-4395-afd5-969fe5d3e45b" />
