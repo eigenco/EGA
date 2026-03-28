@@ -32,3 +32,8 @@ Coppers are also doable with EGA64 both in mode 0dh and 10h. This allows more th
 [KOPL3LPT.PAS] Plays music via OPL3LPT and yet another set of EGA64 Kefrens Bar colors.
 
 <img width="320" height="200" alt="Monitor_1_20260214_205241-987" src="https://github.com/user-attachments/assets/44d7aba9-6718-4395-afd5-969fe5d3e45b" />
+
+[CARWATER.PAS] Per scanline pel panning on EGA adapter (also uses EGA64 colors in lowres and loads PCX).
+
+<img width="320" height="200" alt="turbo_000" src="https://github.com/user-attachments/assets/06ed0d96-1fe6-428c-9ab0-4927bccf9ed0" />
+
