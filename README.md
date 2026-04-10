@@ -1,4 +1,4 @@
-[INTRO.PAS] Combined a bunch of effect on lowres EGA64.
+[INTRO.PAS] Combined a bunch of effects on lowres EGA64. Mainly intended for real 286 and real EGA adapter, but emulation seems possible with the latest DOSBox-X and small tweaks to the code.
 
 <img width="320" height="200" alt="intro_000" src="https://github.com/user-attachments/assets/62125726-bdcb-4198-b306-fba75e451d1c" />
 
