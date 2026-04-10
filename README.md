@@ -1,3 +1,7 @@
+[INTRO.PAS] Combined a bunch of effect on lowres EGA64.
+
+<img width="320" height="200" alt="intro_000" src="https://github.com/user-attachments/assets/62125726-bdcb-4198-b306-fba75e451d1c" />
+
 [EGA.PAS] Test program for EGA monitors with 64 color palette in 320x200 resolution support when VSYNC polarity is negative.
 
 ![EGA64C](https://github.com/eigenco/EGA/assets/42321684/6a913a5a-7ecf-46b6-90d3-7f246e4dfbde)
