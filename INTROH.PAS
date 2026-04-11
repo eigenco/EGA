@@ -118,7 +118,6 @@ begin
       port[$37a] := 5;
 {$ELSE}
       port[$388] := mem[seg(imf^):imfpos];
-      b := port[$388];
 {$ENDIF}
 {$IFDEF OPL3LPT}
       port[$378] := mem[seg(imf^):imfpos+1];
@@ -127,7 +126,6 @@ begin
       port[$37a] := 12;
 {$ELSE}
       port[$389] := mem[seg(imf^):imfpos+1];
-      b := port[$388];
 {$ENDIF}
 
       imfpos := imfpos + 2;
@@ -135,7 +133,8 @@ begin
       imfpos := imfpos + 2;
 
       c := c + 1;
-    until (imfpause > 0) or (c > 32);
+    until (imfpause > 0) or (c > 48);
+{    until (imfpause > 0) or (c > 32);}
   end;
 
   if imfpos > 64000-8 then
@@ -183,11 +182,11 @@ begin
   writeit('or the moment, because it still sounds rather nice for OPL2 (OPL');
   writeit('3 specific features are not utilized). Probably one could fix th');
   writeit('e shortcomings, but that might require someone with more musical'); 
-  writeit(' talent that me or at least quite a bit of effort. It is interes');
-  writeit('ting that per scanline panning only works on EGA (and not on VGA');
-  writeit('). EGA fillrate on my machine seems to be only 447 chr/ms so EGA');
-  writeit(' could be said to be rather slow display adapter in comparison t');
-  writeit('o VGA. BTW. This screen is all textmode.                        ');
+  writeit(' talent that me. It is interesting that per scanline panning onl');
+  writeit('y works on EGA (and not on VGA). EGA fillrate on my machine seem');
+  writeit('s to be 447 chr/ms so EGA could be said to be rather slow displa');
+  writeit('y adapter in comparison to VGA.                                 ');
+  writeit('BTW. This screen is all textmode.                               ');
 
   { load music }
   assign(imffile, 'house.imf');
@@ -564,7 +563,7 @@ begin
     portw[$3d4] := $13;
 
     { generate scanlines }
-    for i := 0 to 182 do
+    for i := 0 to 182-8 do
     begin
       { wait for hsync to end }
       while (port[$3da] and 1) <> 0 do;
