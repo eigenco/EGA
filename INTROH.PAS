@@ -1,5 +1,5 @@
-{$DEFINE DOSBOXEGA}
-(* {$DEFINE OPL3LPT} *)
+(* {$DEFINE DOSBOXEGA} *)
+{$DEFINE OPL3LPT}
 
 {
   This intro is intended to be run on 12 MHz 286 (0WS) with EGA adapter and
@@ -135,7 +135,7 @@ begin
       imfpos := imfpos + 2;
 
       c := c + 1;
-    until imfpause > 0;
+    until (imfpause > 0) or (c > 32);
   end;
 
   if imfpos > 64000-8 then
@@ -174,19 +174,20 @@ begin
   ccol := 1;
   ttt := 0;
   tttt := 0;
-  modnum := 12*64;
+  modnum := 13*64;
   writeit('                                                                ');
-  writeit('Hardware requirements for this intro are approximately 12 MHz 28');
-  writeit('6 (0WS) with EGA display adapter connected to a monitor supporti');
-  writeit('ng EGA 6-bit colors in low resolution (15 kHz) EGA modes. Music ');
-  writeit('requires AdLib compatible sound card. Around 640 KB of RAM is ne');
-  writeit('eded. Most of the required hardware is from 1987 or earlier. It ');
-  writeit('is interesting to note that per scanline panning only works on E');
-  writeit('GA and is not supported by VGA. VGA is also considerably faster ');
-  writeit('with EGA transfer rate typically topping below 500 KB/s while mo');
-  writeit('st (S)VGA adapters transfer multiple MB/s. As you may notice, th');
-  writeit('e music might be a bit too much for OPL2. BTW. This screen is al');
-  writeit('l txtmode.                                                      ');
+  writeit('This intro has been tested on 12 MHz 286 (0WS) with EGA adapter ');
+  writeit('connected to monitor supporting 6-bit colors in 15 kHz modes. Mu');
+  writeit('sic was tested with OPL3LPT, but unfortunately the complexity se');
+  writeit('ems to be a bit too high. Never the less I will leave it as is f');
+  writeit('or the moment, because it still sounds rather nice for OPL2 (OPL');
+  writeit('3 specific features are not utilized). Probably one could fix th');
+  writeit('e shortcomings, but that might require someone with more musical'); 
+  writeit(' talent that me or at least quite a bit of effort. It is interes');
+  writeit('ting that per scanline panning only works on EGA (and not on VGA');
+  writeit('). EGA fillrate on my machine seems to be only 447 chr/ms so EGA');
+  writeit(' could be said to be rather slow display adapter in comparison t');
+  writeit('o VGA. BTW. This screen is all textmode.                        ');
 
   { load music }
   assign(imffile, 'house.imf');
