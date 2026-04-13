@@ -1,5 +1,5 @@
-(* {$DEFINE DOSBOXEGA} *)
-{$DEFINE OPL3LPT}
+{$DEFINE DOSBOXEGA}
+(* {$DEFINE OPL3LPT} *)
 
 {
   This intro is intended to be run on 12 MHz 286 (0WS) with EGA adapter and
@@ -72,9 +72,8 @@ var
   ccc : byte;
   egapal : array [0..255] of byte;
   imffile : file;
-  imf : pointer;
-  imflen : word;
-  imfpos : word;
+  imf0, imf1, imf2 : pointer;
+  imfpos : longint;
   imfpause : word;
   txtpos : word;
   modnum : word;
@@ -111,25 +110,42 @@ begin
   else
   begin
     repeat
+      if (imfpos < 64000) then
+      begin
+        a := mem[seg(imf0^):imfpos];
+        b := mem[seg(imf0^):imfpos+1];
+      end;
+      if (imfpos >= 64000) and (imfpos < 128000) then
+      begin
+        a := mem[seg(imf1^):imfpos-64000];
+        b := mem[seg(imf1^):imfpos+1-64000];
+      end;
+      if imfpos >= 128000 then begin
+        a := mem[seg(imf2^):imfpos-128000];
+        b := mem[seg(imf2^):imfpos+1-128000];
+      end;
+
 {$IFDEF OPL3LPT}
-      port[$378] := mem[seg(imf^):imfpos];
+      port[$378] := a;
       port[$37a] := 5;
       port[$37a] := 1;
       port[$37a] := 5;
 {$ELSE}
-      port[$388] := mem[seg(imf^):imfpos];
+      port[$388] := a;
 {$ENDIF}
 {$IFDEF OPL3LPT}
-      port[$378] := mem[seg(imf^):imfpos+1];
+      port[$378] := b;
       port[$37a] := 12;
       port[$37a] := 8;
       port[$37a] := 12;
 {$ELSE}
-      port[$389] := mem[seg(imf^):imfpos+1];
+      port[$389] := b;
 {$ENDIF}
 
       imfpos := imfpos + 2;
-      imfpause := memw[seg(imf^):imfpos];
+      if imfpos < 64000 then imfpause := memw[seg(imf0^):imfpos];
+      if (imfpos >= 64000) and (imfpos < 128000) then imfpause := memw[seg(imf1^):imfpos-64000];
+      if imfpos >= 128000 then imfpause := memw[seg(imf2^):imfpos-128000];
       imfpos := imfpos + 2;
 
       c := c + 1;
@@ -137,26 +153,10 @@ begin
 {    until (imfpause > 0) or (c > 32);}
   end;
 
-  if imfpos > 64000-8 then
+  if imfpos = 181460-2 then
   begin
-    imfpos := 0;
-    imfpause := 0;
-    for i := 0 to 255 do
-    begin
-{$IFDEF OPL3LPT}
-       port[$378] := i;
-       port[$37a] := 5;
-       port[$37a] := 1;
-       port[$37a] := 5;
-       port[$378] := 0;
-       port[$37a] := 12;
-       port[$37a] := 8;
-       port[$37a] := 12;
-{$ELSE}
-       port[$388] := i;
-       port[$389] := 0;
-{$ENDIF}
-    end;
+    imfpos := 200000;
+    imfpause := 65535;
   end;
 end;
 
@@ -191,10 +191,12 @@ begin
   { load music }
   assign(imffile, 'house.imf');
   reset(imffile, 1);
-  {blockread(imffile, imflen, 2);}
-  imflen := 64000;
-  getmem(imf, imflen);
-  blockread(imffile, imf^, imflen);
+  getmem(imf0, 64000);
+  getmem(imf1, 64000);
+  getmem(imf2, 53460);
+  blockread(imffile, imf0^, 64000);
+  blockread(imffile, imf1^, 64000);
+  blockread(imffile, imf2^, 53460);
   close(imffile);
 
   getmem(ctab0, 256*200);
@@ -666,7 +668,8 @@ begin
 
     { play adlib music (in sync with display) }
     playimf;
-  until (t = 6000) or (port[$64] and 1 = 1);
+  until (port[$64] and 1 = 1) or (imfpos > 190000);
+  {until (t = 6000) or (port[$64] and 1 = 1);}
 
   { reset adlib }
   for i := 0 to 255 do
@@ -693,6 +696,9 @@ begin
     int 10h
   end;
 
+  freemem(imf2, 53460);
+  freemem(imf1, 64000);
+  freemem(imf0, 64000);
   freemem(pixeltab, 256*200);
   freemem(addresstab, 256*200);
   freemem(colorktab, 256*200);
